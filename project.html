@@ -1,43 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Final Exam - Project Functionality</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendations</title>
     <link rel="stylesheet" href="stylesheet.css">
-    <script defer src="project.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simple-slider.min.css">
 </head>
 <body>
-    <h1>Welcome to Book Nook</h1>
-
-    <nav class="header">
-        <ul>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="project.html">Project Specific Functionality</a></li>
-        </ul>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="project.html">Project Specific Functionality</a>
     </nav>
 
-    <section class="project-section">
-        <h2>Book Recommendation System</h2>
-        <p>Search for books by genre, title, or author. Add your favorites to the list and get personalized recommendations!</p>
+    <h1>Book Recommendations</h1>
 
-        <div id="search-container">
-            <input type="text" id="search-input" placeholder="Enter a genre, title, or author">
-            <button id="search-btn" class="button-28">Search</button>
-        </div>
+    <!-- Carousel for random book covers -->
+    <div id="book-carousel" class="slider">
+        <p>Loading carousel... Please wait.</p>
+    </div>
 
-        <div id="results-section">
-            <h3>Search Results</h3>
-            <div id="book-results" class="results-grid">
-                <!-- Books will be dynamically loaded here -->
-            </div>
-        </div>
+    <!-- Dynamic buttons for genres -->
+    <h2>Book Genres</h2>
+    <div id="book-genres" class="genres-container"></div>
 
-        <div id="recommendations-section">
-            <h3>Your Recommendations</h3>
-            <div id="recommendation-list" class="results-grid">
-                <!-- Recommendations will be dynamically loaded here -->
-            </div>
-        </div>
-    </section>
+    <!-- Book information section (hidden until clicked) -->
+    <div id="book-info" style="display: none;">
+        <h2>Title: <span id="book-title"></span></h2>
+        <p>Author: <span id="book-author"></span></p>
+        <p>Description: <span id="book-description"></span></p>
+        <p>First Published: <span id="book-year"></span></p>
+    </div>
+
+    <!-- Audio Instructions Section -->
+    <div class="audio-instructions">
+        <p>Use audio commands to interact with the webpage!</p>
+        <ul>
+            <li><b>Load Book Genre:</b> Say, "Load Genre &lt;Genre Name&gt;"</li>
+            <li><b>Navigate:</b> Say, "Go to Home, About, or Project Specific Functionality"</li>
+        </ul>
+        <button id="audio-on">Enable Audio</button>
+        <button id="audio-off">Disable Audio</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simple-slider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script src="project.js"></script>
 </body>
 </html>
