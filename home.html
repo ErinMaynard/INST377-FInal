@@ -17,60 +17,96 @@
         </ul>
     </nav>
 
+    <!--Create a welcome section with the functionality to navigate to the page where the main function of the application takes place-->
     <section class="About ">
 
         <h3>
             Welcome to the book nook! Here, users can filter through books to figure out what they want to do for their
             next read.
             In order to find your next book, select the Start Search button below to be redirected to the main filtering
-            page of the website; or, feel free to browse the most popular books in English based off of the Gutenberg Index.
+            page of the website; or, feel free to browse the most popular books in English based off of the Gutenberg
+            Index.
             Happy Reading!
         </h3>
 
+        <!--Use the custom button from website to navigate to the project purpose page-->
         <button class="button-28" id="button-28" role="button">Start Search</button>
     </section>
 
-    <table id="bookTable">
+    <section class="About">
+        <div id="loading" style="font-weight: bolder;">
+            <p id="loading-message" style="display:none;">Please wait while we load the books &lpar;This may take a minute&rpar;</p>
+        </div>
+    </section>
 
-    </table>
+    <table id="bookTable" style="display:none;"></table>
 
     <script>
+        //navigate to project page when the "start search" button is clicked
         document.getElementById("button-28").addEventListener("click", function () {
             window.location.href = "project.html";
         });
 
+        //makes the call to gutendex to get the list of the most popular books in english and display it as a table
         async function loadBooks() {
 
+            document.getElementById("loading-message").style.display = 'block';
+
             try {
+                //make the api call and get the results
                 const res = await fetch(`http://gutendex.com/books?languages=en`)
                 const data = await res.json();
                 const books = data.results;
 
+                //create the table that the collected information will be added to
                 const bookTable = document.getElementById('bookTable');
 
                 bookTable.innerHTML = `
                                 <tr>
+                                    <th>Cover</th>
                                     <th>Title</th>
                                     <th>Author</th>
                                 <tr>
                                     `;
 
-                books.forEach((book) => {
+                //this for loop allows for looping through promises returned by the apis and lets you use await for async functions inside
+                for (const book of books) {
                     const tableRow = document.createElement("tr");
+
+                    const bookCoverInTable = document.createElement("td");
                     const bookNameInTable = document.createElement("td");
                     const bookAuthorInTable = document.createElement("td");
 
+                    //call the getBookCover function which will fetch the book cover from the openLibrary API
+                    const coverImg = await getBookCover(book.title);
+
+                    //if a cover is found, add it in the dedicated cell
+                    if (coverImg) {
+                        const img = document.createElement("img");
+                        img.src = coverImg;
+                        bookCoverInTable.appendChild(img);
+                        //handle in the case no cover is found
+                    } else {
+                        bookCoverInTable.innerHTML = "No cover available";
+                    }
+                    //add title and author name of the books retrieved by gutendex
                     bookNameInTable.innerHTML = book.title || "No title available";
                     bookAuthorInTable.innerHTML = (book.authors && book.authors.join(", ")) || "No author available";
 
+                    //add all of the correct information to the newly created row
+                    tableRow.appendChild(bookCoverInTable);
                     tableRow.appendChild(bookNameInTable);
                     tableRow.appendChild(bookAuthorInTable);
 
+                    //add the row to the table created
                     bookTable.appendChild(tableRow);
-                });
+                };
 
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('loading-message').style.display = 'none';
                 bookTable.style.display = 'table';
 
+                //in case of an error with the api call
             } catch (error) {
                 alert("Failed to load books. Please try again.");
             }
@@ -78,7 +114,33 @@
 
         }
 
-        window.onload=loadBooks;
+        //use the information gathered from the gutundex to make an openLibrary api call and get the cover of the corresponding book
+        async function getBookCover(title) {
+
+            //make the call
+            try {
+
+                bookTitle = title.trim().replace(/ /g, '+');
+                const res = await fetch(`https://openlibrary.org/search.json?title=${bookTitle}&limit=1`);
+                const data = await res.json();
+
+                //if the data is correctly retrieved and there is a cover to be found
+                if (data.docs && data.docs.length > 0) {
+                    const coverId = data.docs[0].cover_i;
+                    if (coverId) {
+                        return `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
+                    }
+                }
+                return null;
+                //call fails
+            } catch (error) {
+                console.error("Failed to fetch cover from Open Library", error);
+                return null;
+            }
+        }
+
+        //load the table in when the user loads the website
+        window.onload = loadBooks;
     </script>
 </body>
 
