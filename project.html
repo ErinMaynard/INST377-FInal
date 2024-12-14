@@ -8,41 +8,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simple-slider.min.css">
 </head>
 <body>
-    <nav>
-        <a href="home.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="project.html">Project Specific Functionality</a>
+    <header>
+        <h1>Welcome to Book Nook</h1>
+    </header>
+
+    <nav class="header">
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="project.html">Project Specific Functionality</a></li>
+        </ul>
     </nav>
 
-    <h1>Book Recommendations</h1>
+    <main>
+        <!-- Carousel for random book covers -->
+        <section class="carousel-section">
+            <h2>Top Book Covers</h2>
+            <div id="book-carousel" class="slider">
+                <p>Loading carousel... Please wait.</p>
+            </div>
+        </section>
 
-    <!-- Carousel for random book covers -->
-    <div id="book-carousel" class="slider">
-        <p>Loading carousel... Please wait.</p>
-    </div>
+        <!-- Dynamic buttons for genres -->
+        <section class="genres-section">
+            <h2>Explore by Genres</h2>
+            <div id="book-genres" class="genres-container"></div>
+        </section>
 
-    <!-- Dynamic buttons for genres -->
-    <h2>Book Genres</h2>
-    <div id="book-genres" class="genres-container"></div>
+        <!-- Book information section -->
+        <section id="book-info" class="book-info-section" style="display: none;">
+            <h2>Book Information</h2>
+            <p><b>Title:</b> <span id="book-title"></span></p>
+            <p><b>Author:</b> <span id="book-author"></span></p>
+            <p><b>Description:</b> <span id="book-description"></span></p>
+            <p><b>First Published:</b> <span id="book-year"></span></p>
+        </section>
 
-    <!-- Book information section (hidden until clicked) -->
-    <div id="book-info" style="display: none;">
-        <h2>Title: <span id="book-title"></span></h2>
-        <p>Author: <span id="book-author"></span></p>
-        <p>Description: <span id="book-description"></span></p>
-        <p>First Published: <span id="book-year"></span></p>
-    </div>
-
-    <!-- Audio Instructions Section -->
-    <div class="audio-instructions">
-        <p>Use audio commands to interact with the webpage!</p>
-        <ul>
-            <li><b>Load Book Genre:</b> Say, "Load Genre &lt;Genre Name&gt;"</li>
-            <li><b>Navigate:</b> Say, "Go to Home, About, or Project Specific Functionality"</li>
-        </ul>
-        <button id="audio-on">Enable Audio</button>
-        <button id="audio-off">Disable Audio</button>
-    </div>
+        <!-- Audio Instructions Section -->
+        <section class="audio-instructions">
+            <h2>Audio Navigation</h2>
+            <p>Use audio commands to interact with the webpage!</p>
+            <ul>
+                <li><b>Load Book Genre:</b> Say, "Load Genre &lt;Genre Name&gt;"</li>
+                <li><b>Navigate:</b> Say, "Go to Home, About, or Project Specific Functionality"</li>
+            </ul>
+            <button id="audio-on" class="button-28">Enable Audio</button>
+            <button id="audio-off" class="button-28">Disable Audio</button>
+        </section>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simple-slider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
