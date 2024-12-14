@@ -1,24 +1,43 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Final Exam </title>
+    <title>Final Exam - Project Functionality</title>
     <link rel="stylesheet" href="stylesheet.css">
+    <script defer src="project.js"></script>
 </head>
-
 <body>
-    <h1>Welcome to Book Nook </h1>
+    <h1>Welcome to Book Nook</h1>
 
     <nav class="header">
         <ul>
             <li><a href="home.html">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="project.html">Project Specfic Functionality</a></li>
+            <li><a href="project.html">Project Specific Functionality</a></li>
         </ul>
     </nav>
 
-    <script>
-        
-    </script>
+    <section class="project-section">
+        <h2>Book Recommendation System</h2>
+        <p>Search for books by genre, title, or author. Add your favorites to the list and get personalized recommendations!</p>
+
+        <div id="search-container">
+            <input type="text" id="search-input" placeholder="Enter a genre, title, or author">
+            <button id="search-btn" class="button-28">Search</button>
+        </div>
+
+        <div id="results-section">
+            <h3>Search Results</h3>
+            <div id="book-results" class="results-grid">
+                <!-- Books will be dynamically loaded here -->
+            </div>
+        </div>
+
+        <div id="recommendations-section">
+            <h3>Your Recommendations</h3>
+            <div id="recommendation-list" class="results-grid">
+                <!-- Recommendations will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
 </body>
 </html>
