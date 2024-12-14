@@ -65,7 +65,7 @@
                                 <tr>
                                     <th>Cover</th>
                                     <th>Title</th>
-                                    <th>Author</th>
+                                    <th>Author (Last, First)</th>
                                 <tr>
                                     `;
 
@@ -91,7 +91,14 @@
                     }
                     //add title and author name of the books retrieved by gutendex
                     bookNameInTable.innerHTML = book.title || "No title available";
-                    bookAuthorInTable.innerHTML = (book.authors && book.authors.join(", ")) || "No author available";
+
+                    if(book.authors.length > 1) {
+                        bookAuthorInTable.innerHTML = `${book.authors[0].name}, ${book.authors[1].name}`;
+                    } else if(book.authors.length == 1) {
+                        bookAuthorInTable.innerHTML = book.authors[0].name;
+                    } else {
+                        bookAuthorInTable.innerHTML = "No Author Found";
+                    }
 
                     //add all of the correct information to the newly created row
                     tableRow.appendChild(bookCoverInTable);
