@@ -13,7 +13,9 @@
         const carousel = document.getElementById('book-carousel');
         carousel.innerHTML = ''; // Clear the loading text
 
-        const slides = [];
+        const slideContainer = document.createElement('div'); // Create a container for the slides
+        slideContainer.classList.add('slider'); // Add a class to the container for SimpleSlider to work with
+        carousel.appendChild(slideContainer);
 
         // Loop through the books and fetch their covers
         for (const book of books) {
@@ -34,26 +36,20 @@
                 img.style.border = '2px solid #5c4033';
 
                 slide.appendChild(img)
-                slides.push(slide);
+                slideContainer.appendChild(slide);
             } else {
                 continue;
             }
         }
 
-        slides.forEach(slide => {
-            carousel.appendChild(slide);
-        });
-
         // Initialize the carousel
         document.addEventListener('DOMContentLoaded', function () {
-            new SimpleSlider('.slider', {
+            simpleslider.getSlider({
                 container: document.getElementById('book-carousel'),
-                arrows: true,
-                autoplay: true,
-                interval: 3000,  // 3 seconds per slide
-                transitionTime: 1000,  // 1 second transition time
-                slidesToShow: 1,  // Show only one slide at a time
-            });
+                transitionTime:1,
+                delay:3.5,
+                slidesToShow: 1
+              });
         });
     } catch (error) {
         console.error('Error fetching books for carousel:', error);

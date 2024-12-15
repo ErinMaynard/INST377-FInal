@@ -7,7 +7,9 @@
     <title>Book Recommendations</title>
     <link rel="stylesheet" href="stylesheet.css">
 
+    <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
+    
 
 </head>
 
@@ -27,9 +29,9 @@
     <main>
 
         <!-- Carousel for random book covers -->
-        <section class="carousel-section">
+        <section class="carousel-section" id="carousel-section">
             <h2>Top Book Covers</h2>
-            <div id="book-carousel" style="overflow: hidden;">
+            <div id="book-carousel" data-simple-slider>
                 <p>Loading carousel... Please wait.</p>
             </div>
         </section>
@@ -141,12 +143,6 @@
 
             window.onload = function () {
                 getFavorites();
-                const carousel = document.getElementById('book-carousel');
-                simpleslider.getSlider({
-                    container: carousel,
-                    transitionTime: 1,
-                    delay: 3,
-                });
             };
         </script>
 
@@ -165,6 +161,7 @@
         </section>
     </main>
 
+    <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
     <script src="project.js"></script>
 </body>
