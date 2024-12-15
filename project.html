@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Recommendations</title>
     <link rel="stylesheet" href="stylesheet.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simple-slider.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
+
 </head>
 
 <body>
@@ -27,7 +29,7 @@
         <!-- Carousel for random book covers -->
         <section class="carousel-section">
             <h2>Top Book Covers</h2>
-            <div id="book-carousel" class="slider">
+            <div id="book-carousel" style="overflow: hidden;">
                 <p>Loading carousel... Please wait.</p>
             </div>
         </section>
@@ -55,8 +57,9 @@
             <table id="favoritesTable"></table>
         </div>
 
+
         <!--"download" the slider functionality-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simple-slider.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
         <!--"download" the supabase functionality-->
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
 
@@ -66,7 +69,7 @@
             const supabaseURL = 'https://klcewgclxwoycclddtkw.supabase.co';
             const supabaseKey =
                 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtsY2V3Z2NseHdveWNjbGRkdGt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQyMjYxODEsImV4cCI6MjA0OTgwMjE4MX0.3kHuJfKO9QJRmXaI67OrRHSPDUL6KiSYAUoagTpREfg';
-                const supabaseClient = supabase.createClient(supabaseURL, supabaseKey);
+            const supabaseClient = supabase.createClient(supabaseURL, supabaseKey);
 
             //when the button to add a favorite is clicked, get the books info and run the addfavorite function
             document.getElementById("add-favorite-btn").addEventListener('click', function () {
@@ -136,7 +139,15 @@
                 });
             }
 
-            window.onload = getFavorites;
+            window.onload = function () {
+                getFavorites();
+                const carousel = document.getElementById('book-carousel');
+                simpleslider.getSlider({
+                    container: carousel,
+                    transitionTime: 1,
+                    delay: 3,
+                });
+            };
         </script>
 
 
