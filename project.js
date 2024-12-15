@@ -1,4 +1,6 @@
 // Fetch books from Gutendex and display them in the carousel
+
+
 (async () => {
     const apiUrl = 'http://gutendex.com/books?languages=en'; // Gutendex API URL
 

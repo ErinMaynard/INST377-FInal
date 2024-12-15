@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="stylesheet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simple-slider.min.css">
 </head>
+
 <body>
     <header>
         <h1>Welcome to Book Nook</h1>
@@ -21,6 +23,7 @@
     </nav>
 
     <main>
+
         <!-- Carousel for random book covers -->
         <section class="carousel-section">
             <h2>Top Book Covers</h2>
@@ -42,7 +45,101 @@
             <p><b>Author:</b> <span id="book-author"></span></p>
             <p><b>Description:</b> <span id="book-description"></span></p>
             <p><b>First Published:</b> <span id="book-year"></span></p>
+            <button class="button-28" id="add-favorite-btn">
+                Add to Favorites
+            </button>
         </section>
+
+        <!--creating the table object that the favorites will be displayed in-->
+        <div class="favorites-container" id="favorites-container" style="display:none;">
+            <table id="favoritesTable"></table>
+        </div>
+
+        <!--"download" the slider functionality-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simple-slider.min.js"></script>
+        <!--"download" the supabase functionality-->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
+
+        <!--script with supabase integration used to add favorites to a table-->
+        <script>
+
+            const supabaseURL = 'https://klcewgclxwoycclddtkw.supabase.co';
+            const supabaseKey =
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtsY2V3Z2NseHdveWNjbGRkdGt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQyMjYxODEsImV4cCI6MjA0OTgwMjE4MX0.3kHuJfKO9QJRmXaI67OrRHSPDUL6KiSYAUoagTpREfg';
+                const supabaseClient = supabase.createClient(supabaseURL, supabaseKey);
+
+            //when the button to add a favorite is clicked, get the books info and run the addfavorite function
+            document.getElementById("add-favorite-btn").addEventListener('click', function () {
+                const bookTitle = document.getElementById("book-title").innerText;
+                const bookAuthor = document.getElementById("book-author").innerText;
+                document.getElementById("favorites-container").style.display = 'block';
+                addFavorite(bookTitle, bookAuthor);
+            });
+
+            //when the button to add a favorite is clicked this will run and update the supabase table
+            async function addFavorite(bookTitle, bookAuthor) {
+                const { data, error } = await supabaseClient
+                    .from('favorites')
+                    .insert({
+                        book_title: bookTitle,
+                        book_author: bookAuthor
+                    })
+                if (error) {
+                    console.error('Error:', error);
+                } else {
+                    console.log('Successfully Retrieved Data');
+                    console.log(data);
+                    getFavorites();
+                }
+            }
+
+            async function getFavorites() {
+                const { data, error } = await supabaseClient.from('favorites').select();
+
+                if (error) {
+                    console.error('Error loading favorites:', error);
+                } else {
+                    displayFavorites(data);
+                }
+            }
+
+            async function displayFavorites(favorites) {
+                bookTable = document.getElementById("favoritesTable");
+
+                bookTable.innerHTML = `
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Author (Last, First)</th>
+                                    <th>Date Added</th>
+                                </tr>
+                                    `;
+
+                favorites.forEach(favorite => {
+                    const tableRow = document.createElement("tr");
+
+                    const bookNameInTable = document.createElement("td");
+                    const bookAuthorInTable = document.createElement("td");
+                    const dateCreated = document.createElement("td");
+
+                    //add title and author name of the books retrieved by gutendex
+                    bookNameInTable.innerHTML = favorite.book_title;
+                    bookAuthorInTable.innerHTML = favorite.book_author;
+                    dateCreated.innerHTML = new Date(favorite.created_at).toLocaleString();
+
+                    //add all of the correct information to the newly created row
+                    tableRow.appendChild(bookNameInTable);
+                    tableRow.appendChild(bookAuthorInTable);
+                    tableRow.appendChild(dateCreated);
+
+                    //add the row to the table created
+                    bookTable.appendChild(tableRow);
+                });
+            }
+
+            window.onload = getFavorites;
+        </script>
+
+
 
         <!-- Audio Instructions Section -->
         <section class="audio-instructions">
@@ -57,8 +154,8 @@
         </section>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simple-slider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
     <script src="project.js"></script>
 </body>
+
 </html>
