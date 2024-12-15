@@ -13,17 +13,17 @@
         const carousel = document.getElementById('book-carousel');
         carousel.innerHTML = ''; // Clear the loading text
 
-        const slideContainer = document.createElement('div'); // Create a container for the slides
+        /*const slideContainer = document.createElement('div'); // Create a container for the slides
         slideContainer.classList.add('slider'); // Add a class to the container for SimpleSlider to work with
-        carousel.appendChild(slideContainer);
+        carousel.appendChild(slideContainer);*/
 
         // Loop through the books and fetch their covers
         for (const book of books) {
             const coverImg = await getBookCover(book.title); // Fetch book cover from Open Library
 
             
-            const slide = document.createElement('div');
-            slide.classList.add('slide');
+            //const slide = document.createElement('div');
+            //slide.classList.add('slide');
             
             // Only add books with available covers
             if (coverImg) {
@@ -35,22 +35,17 @@
                 img.style.borderRadius = '10px';
                 img.style.border = '2px solid #5c4033';
 
-                slide.appendChild(img)
-                slideContainer.appendChild(slide);
+                //slide.appendChild(img)
+                //slideContainer.appendChild(slide);
+                carousel.appendChild(img);
             } else {
                 continue;
             }
         }
 
         // Initialize the carousel
-        document.addEventListener('DOMContentLoaded', function () {
-            simpleslider.getSlider({
-                container: document.getElementById('book-carousel'),
-                transitionTime:1,
-                delay:3.5,
-                slidesToShow: 1
-              });
-        });
+            simpleslider.getSlider();
+
     } catch (error) {
         console.error('Error fetching books for carousel:', error);
         document.getElementById('book-carousel').innerHTML = '<p>Failed to load carousel. Please try refreshing the page.</p>';

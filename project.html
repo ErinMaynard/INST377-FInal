@@ -7,8 +7,9 @@
     <title>Book Recommendations</title>
     <link rel="stylesheet" href="stylesheet.css">
 
-    <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
+    <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js" defer></script>
+    <script src="project.js" defer></script>
     
 
 </head>
@@ -31,8 +32,7 @@
         <!-- Carousel for random book covers -->
         <section class="carousel-section" id="carousel-section">
             <h2>Top Book Covers</h2>
-            <div id="book-carousel" data-simple-slider>
-                <p>Loading carousel... Please wait.</p>
+            <div id="book-carousel" style="width: 100%; padding-bottom: 25%" data-simple-slider>
             </div>
         </section>
 
@@ -161,9 +161,6 @@
         </section>
     </main>
 
-    <script src="https://rawgit.com/ruyadorno/simple-slider/master/dist/simpleslider.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
-    <script src="project.js"></script>
 </body>
 
 </html>
