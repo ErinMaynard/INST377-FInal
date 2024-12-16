@@ -40,6 +40,9 @@
         <section class="genres-section">
             <h2>Explore by Genres</h2>
             <div id="book-genres" class="genres-container"></div>
+            <button class="button-28" id="see-favorite-btn" style="margin-top: 2%;">
+                See Favorites
+            </button>
         </section>
 
         <!-- Book information section -->
@@ -79,6 +82,10 @@
                 const bookAuthor = document.getElementById("book-author").innerText;
                 document.getElementById("favorites-container").style.display = 'block';
                 addFavorite(bookTitle, bookAuthor);
+            });
+            document.getElementById("see-favorite-btn").addEventListener('click', function () {
+                document.getElementById("favorites-container").style.display = 'block';
+                getFavorites();
             });
 
             //when the button to add a favorite is clicked this will run and update the supabase table

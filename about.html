@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
-    
+
 <head>
     <title>Final Exam </title>
     <link rel="stylesheet" href="stylesheet.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
 </head>
+
 
 <body>
     <h1> Welcome to Book Nook </h1>
+
 
     <nav class="header">
         <ul>
@@ -16,17 +21,51 @@
             <li><a href="project.html">Project Specfic Functionality</a></li>
         </ul>
     </nav>
-
-  
     </section>
 
-    <section class="About ">
-       
-        <h3>Notes </h3>
 
-        
+    <section class="About" id="about">
+
+        <h3>Welcome to Book Nook, the ultimate playground for book lovers!
+            Our website provides every reader to a world of expolration of vibrant world of stories, ideas, and
+            adventures.
+            Each click dive readers into our treasure trove of books and collections.
+            Readers are welcome to effortlessly filter by genre to see the most popular book that fits based on
+            downloads from fellow readers.
+            Our database also provide information about authors and various collections of their work
+            If it is books then We’ve got you covered! Whether you're chasing an epic fantasy, a heartwarming romance,
+            or the latest bestseller, Book Nook is a box of curated favorites!</h3>
+
+        <button class="button-28" id="button-28" role="button">Start Search</button>
+        <img src="book_gif.gif" id="book" style="display: block; margin-top: 5%; margin-left: 34%;" alt="https://giphy.com/explore/book-turning-pages">
     </section>
-        
+
+    
+
+
+    <script>
+        document.getElementById("button-28").addEventListener("click", function () {
+            window.location.href = "project.html";
+        });
+
+        anime({
+            targets: '#about',
+            translateY: [500, 0],
+            opacity: [0, 1],
+            duration: 2000,
+            easing: 'easeOutExpo'
+        })
+        anime({
+            targets: '#book',
+            translateY: [500, 0],
+            opacity: [0, 1],
+            duration: 3000,
+            easing: 'easeOutExpo'
+        })
+    </script>
+
+
 
 </body>
+
 </html>
